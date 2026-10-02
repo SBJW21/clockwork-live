@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact | Clockwork Live</title>
+<meta name="description" content="Start a conversation with Clockwork Live about your next event, launch or installation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap">
+      <a href="index.html" class="brand"><svg class="brand-mark" viewBox="545.66 167.34 444.69 512.35" xmlns="http://www.w3.org/2000/svg"></svg>CLOCKWORK<span class="live">LIVE</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="work.html">Work</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="contact.html" class="nav-cta">Start a project</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Tell us about the show.</h1>
+      <p>The more detail you give us up front, the faster we can come back with something useful. No detail yet? That's fine too, just send what you've got.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <form class="card" id="contactForm">
+          <div class="grid grid-2">
+            <div class="form-field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+          </div>
+          <div class="grid grid-2">
+            <div class="form-field">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" />
+            </div>
+            <div class="form-field">
+              <label for="date">Event date (if known)</label>
+              <input type="text" id="date" name="date" placeholder="e.g. March 2027" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="service">What do you need?</label>
+            <select id="service" name="service">
+              <option>Audio Visual Production</option>
+              <option>Lighting &amp; Staging</option>
+              <option>Creative Technology</option>
+              <option>Live Streaming &amp; Broadcast</option>
+              <option>Full Event Technical Production</option>
+              <option>Equipment &amp; Crew Hire</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Tell us about the project</label>
+            <textarea id="message" name="message" required placeholder="Venue, audience size, dates, anything you've already got planned..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send it over</button>
+        </form>
+
+        <div class="contact-info">
+          <div class="item">
+            <div>
+              <div class="label">Email</div>
+              <div class="value"><a href="mailto:hello@clockworklive.com">hello@clockworklive.com</a></div>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="label">Phone</div>
+              <div class="value">+61 (0)2 0000 0000</div>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="label">Based in</div>
+              <div class="value">Australia, touring nationally</div>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="label">Response time</div>
+              <div class="value">Within two business days</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="brand"><img src="assets/logo-mark.svg" alt="" style="width:26px;height:auto;" />CLOCKWORK<span class="live">LIVE</span></a>
+          <p>Experiential AV and event production for brands, agencies and venues who can't afford a bad show day.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Site</h4>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="work.html">Work</a>
+            <a href="team.html">Team</a>
+          </div>
+          <div class="footer-col">
+            <h4>Get in touch</h4>
+            <a href="contact.html">Contact</a>
+            <a href="mailto:hello@clockworklive.com">hello@clockworklive.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Clockwork Live. All rights reserved.</span>
+        <span>Built and run by Clockwork Live</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/brand-logo.js"></script>
+  <script>
+    // Placeholder handler: wire this up to a form backend (Formspree, Resend, etc.)
+    // or a Vercel serverless function once hosting is set up.
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thanks, this form isn\'t wired up to send yet. We\'ll connect it to email once the site is live.');
+    });
+  </script>
+</body>
+</html>
