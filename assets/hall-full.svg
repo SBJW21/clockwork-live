@@ -79,7 +79,7 @@
 <g clip-path="url(#scr)">
 <ellipse cx="720" cy="470" rx="260" ry="200" fill="#3346ef" opacity="0.95" filter="url(#blur40)"/>
 <ellipse cx="1180" cy="420" rx="240" ry="190" fill="#ff5a1f" opacity="0.9" filter="url(#blur40)"/>
-<ellipse cx="960" cy="560" rx="260" ry="120" fill="#17e06a" opacity="0.8" filter="url(#blur40)"/>
+<ellipse cx="960" cy="560" rx="260" ry="120" fill="#3fb877" opacity="0.8" filter="url(#blur40)"/>
 <ellipse cx="960" cy="400" rx="200" ry="120" fill="#3dc4ff" opacity="0.8" filter="url(#blur40)"/>
 </g>
 <text x="960" y="452" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="64" letter-spacing="6" fill="#fff">THE UNVEILING</text>

@@ -16,7 +16,7 @@
   const BRAND = {
     blue:   { colors: ['#3346ef', '#3346ef', '#3346ef', '#3dc4ff', '#3346ef', '#3346ef', '#3dc4ff'], avg: '#3d8bff' },
     orange: { colors: ['#ff2d4d', '#ff5a1f', '#ff2d4d', '#ffb100', '#ff5a1f', '#ff2d4d', '#ffb100'], avg: '#ff6a2d' },
-    green:  { colors: ['#17e06a', '#0fd457', '#20e86f', '#20e86f', '#17e06a', '#17e06a', '#4ff28c'], avg: '#1fe868' },
+    green:  { colors: ['#3fb877', '#35a96b', '#4cc384', '#4cc384', '#3fb877', '#3fb877', '#4ff28c'], avg: '#1fe868' },
   };
 
   const SVGNS = 'http://www.w3.org/2000/svg';
