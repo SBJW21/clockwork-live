@@ -235,43 +235,92 @@
   (function () {
     var root = document.getElementById('reveal');
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var coarse = window.matchMedia && matchMedia('(hover: none)').matches;
     var x = 0, y = 0, tx = 0, ty = 0, r = 0, tr = 0;
     var demo = false, demoStart = 0, started = false;
+    var floating = false, vx = 0, vy = 0, resumeTimer = null, last = 0;
+    var SPEED = 26; /* px per second: slow enough to stay calm */
 
+    if (coarse) { var hint = root.querySelector('.hint'); if (hint) hint.textContent = 'Touch the hall'; }
+
+    function box() { return root.getBoundingClientRect(); }
     function rMax() {
-      var b = root.getBoundingClientRect();
+      var b = box();
       return Math.min(250, Math.min(b.width, b.height) * 0.42);
     }
     function point(e) {
-      var b = root.getBoundingClientRect();
+      var b = box();
       tx = e.clientX - b.left; ty = e.clientY - b.top;
       if (!started) { x = tx; y = ty; started = true; }
-      demo = false; tr = rMax();
+      demo = false; floating = false;
+      clearTimeout(resumeTimer);
+      tr = rMax();
       root.classList.add('on', 'touched');
     }
-    root.addEventListener('pointerenter', point);
+    function release() {
+      if (coarse && !reduce) {
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(startFloat, 1400);
+      } else if (!coarse) {
+        tr = 0;
+      }
+    }
+    function startFloat() {
+      var b = box();
+      if (!started) { x = tx = b.width * 0.5; y = ty = b.height * 0.55; started = true; }
+      var a = Math.random() * Math.PI * 2;
+      vx = Math.cos(a) * SPEED; vy = Math.sin(a) * SPEED;
+      tx = x; ty = y;
+      floating = true; last = 0; tr = rMax();
+      root.classList.add('on');
+    }
+    root.addEventListener('pointerenter', function (e) { if (!coarse) point(e); });
     root.addEventListener('pointermove', point);
     root.addEventListener('pointerdown', point);
-    root.addEventListener('pointerleave', function () { tr = 0; });
-    root.addEventListener('pointercancel', function () { tr = 0; });
+    root.addEventListener('pointerup', release);
+    root.addEventListener('pointerleave', release);
+    root.addEventListener('pointercancel', release);
 
-    if (!reduce) {
-      setTimeout(function () {
-        if (started) return;
-        var b = root.getBoundingClientRect();
-        x = tx = b.width * 0.5; y = ty = b.height * 0.55; started = true;
-        demo = true; demoStart = performance.now(); tr = rMax();
-        root.classList.add('on');
-      }, 700);
-    }
+    setTimeout(function () {
+      if (started) return;
+      if (coarse) {
+        if (reduce) {
+          var b = box();
+          x = tx = b.width * 0.5; y = ty = b.height * 0.55; started = true;
+          tr = rMax(); root.classList.add('on');
+        } else { startFloat(); }
+        return;
+      }
+      if (reduce) return;
+      var b2 = box();
+      x = tx = b2.width * 0.5; y = ty = b2.height * 0.55; started = true;
+      demo = true; demoStart = performance.now(); tr = rMax();
+      root.classList.add('on');
+    }, 700);
 
     function frame(t) {
-      if (demo) {
-        var b = root.getBoundingClientRect(), k = (t - demoStart) / 1000;
-        tx = b.width * (0.5 + 0.2 * Math.sin(k * 0.7));
-        ty = b.height * (0.55 + 0.12 * Math.sin(k * 1.1));
+      var b = box();
+      if (floating) {
+        var dt = last ? Math.min(0.25, (t - last) / 1000) : 0;
+        last = t;
+        var rr = rMax(), pad = rr * 0.45;
+        var minX = pad, maxX = b.width - pad, minY = pad, maxY = b.height - pad;
+        var tvx = vx, tvy = vy;
+        /* turn around gently at the edges instead of snapping */
+        if (tx < minX && vx < 0) tvx = Math.abs(vx);
+        if (tx > maxX && vx > 0) tvx = -Math.abs(vx);
+        if (ty < minY && vy < 0) tvy = Math.abs(vy);
+        if (ty > maxY && vy > 0) tvy = -Math.abs(vy);
+        var k = Math.min(1, dt * 1.2);
+        vx += (tvx - vx) * k; vy += (tvy - vy) * k;
+        tx += vx * dt; ty += vy * dt + Math.sin(t / 2200) * 6 * dt;
+        tr = rr;
+      } else if (demo) {
+        var kk = (t - demoStart) / 1000;
+        tx = b.width * (0.5 + 0.2 * Math.sin(kk * 0.7));
+        ty = b.height * (0.55 + 0.12 * Math.sin(kk * 1.1));
       }
-      var e = reduce ? 1 : 0.16;
+      var e = reduce ? 1 : (floating ? 0.08 : 0.16);
       x += (tx - x) * e; y += (ty - y) * e; r += (tr - r) * (reduce ? 1 : 0.13);
       if (Math.abs(r) < 0.3 && tr === 0) { r = 0; root.classList.remove('on'); }
       root.style.setProperty('--x', x.toFixed(1) + 'px');
