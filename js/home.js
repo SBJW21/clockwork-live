@@ -1,24 +1,29 @@
-// Home page motion: service icons play once as they scroll into view,
+// Home page motion: service icons cycle in order,
 // and the brief-to-run flow lights up step by step.
 (function () {
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canObserve = 'IntersectionObserver' in window;
 
+  // Service icons play one at a time, in order: cue 1 for 2 seconds, then 2
+  // to 6, then back to 1. Only runs while the grid is on screen.
   var cards = [].slice.call(document.querySelectorAll('.cue-card'));
-  if (canObserve && !reduce) {
-    var cardIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var c = e.target;
-        var delay = (cards.indexOf(c) % 2) * 160;
-        setTimeout(function () {
-          c.classList.add('play');
-          setTimeout(function () { c.classList.remove('play'); }, 2200);
-        }, delay);
-        cardIO.unobserve(c);
-      });
-    }, { threshold: 0.6 });
-    cards.forEach(function (c) { cardIO.observe(c); });
+  var grid = document.querySelector('.cue-grid');
+  if (grid && canObserve && !reduce) {
+    var cur = -1, timer = null;
+    function tick() {
+      if (cur >= 0) cards[cur].classList.remove('play');
+      cur = (cur + 1) % cards.length;
+      cards[cur].classList.add('play');
+    }
+    function start() { if (timer) return; tick(); timer = setInterval(tick, 2000); }
+    function stop() {
+      clearInterval(timer); timer = null;
+      if (cur >= 0) cards[cur].classList.remove('play');
+      cur = -1;
+    }
+    new IntersectionObserver(function (entries) {
+      entries[0].isIntersecting ? start() : stop();
+    }, { threshold: 0.25 }).observe(grid);
   }
 
   var flow = document.querySelector('.flow');
