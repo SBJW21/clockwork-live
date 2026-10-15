@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+<script>(function(){try{var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!r&&(!sessionStorage.getItem('cwIntro')||/[?&]intro/.test(location.search)))document.documentElement.classList.add('intro-on')}catch(e){}})()</script>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/intro.css">
 <style>
   .reveal {
     --x: 50%; --y: 50%; --r: 0px;
@@ -95,6 +97,8 @@
     <img class="layer top" src="assets/hall-full.svg" alt="" />
     <div class="ring" id="ring"></div>
     <div class="hint">Move over the hall</div>
+    <div class="intro-dark" aria-hidden="true"></div>
+    <div class="intro-beams" aria-hidden="true"><i class="flare"></i><i class="beam b1"></i><i class="beam b2"></i></div>
     <div class="copy">
       <div class="wrap">
         <span class="eyebrow">Experiential AV &amp; Event Production</span>
@@ -240,6 +244,7 @@
   <script src="js/nav.js"></script>
   <script src="js/brand-logo.js"></script>
   <script src="js/home.js"></script>
+  <script src="js/intro.js"></script>
   <script>
   (function () {
     var root = document.getElementById('reveal');

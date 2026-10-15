@@ -1,0 +1,82 @@
+/* Homepage intro: stage lights strike, two beams swing up and open the hall.
+   Only runs when <html> has .intro-on (set once per session in the page head). */
+
+@property --ir { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+
+.intro-dark, .intro-beams { display: none; }
+
+.intro-on .intro-dark, .intro-on .intro-beams {
+  display: block; position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+
+/* Black cover with a hole that opens from the bottom centre */
+.intro-on .intro-dark {
+  background: #05060a;
+  -webkit-mask-image: radial-gradient(ellipse 130% 110% at 50% 100%, transparent var(--ir), #000 calc(var(--ir) + 16%));
+  mask-image: radial-gradient(ellipse 130% 110% at 50% 100%, transparent var(--ir), #000 calc(var(--ir) + 16%));
+}
+.intro-on.intro-go .intro-dark { animation: intro-open 1.7s 0.9s cubic-bezier(.45,.05,.2,1) both; }
+@keyframes intro-open {
+  0%   { --ir: 0%;   opacity: 1; }
+  88%  { opacity: 1; }
+  100% { --ir: 130%; opacity: 0; }
+}
+
+/* Strike: a hot point flickers on at the bottom centre */
+.intro-on .flare {
+  position: absolute; left: 50%; bottom: 0; width: 46vmin; height: 46vmin;
+  transform: translate(-50%, 50%) scale(0.2);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,248,226,0.95) 0%, rgba(255,226,160,0.45) 28%, rgba(255,226,160,0) 68%);
+  opacity: 0;
+}
+.intro-on.intro-go .flare { animation: intro-strike 1.5s 0.25s ease-out both; }
+@keyframes intro-strike {
+  0%   { opacity: 0; transform: translate(-50%, 50%) scale(0.2); }
+  8%   { opacity: 1; }
+  14%  { opacity: 0.15; }
+  24%  { opacity: 1; }
+  32%  { opacity: 0.35; }
+  44%  { opacity: 1; transform: translate(-50%, 50%) scale(0.7); }
+  100% { opacity: 0; transform: translate(-50%, 50%) scale(2.4); }
+}
+
+/* Beams: soft cones that swing from near horizontal up to the vertical */
+.intro-on .beam { position: absolute; bottom: 0; width: 0; height: 0; opacity: 0; mix-blend-mode: screen; }
+.intro-on .beam::before {
+  content: ""; position: absolute;
+  width: 240vmax; height: 240vmax; left: -120vmax; top: -120vmax;
+  background: conic-gradient(from -11deg at 50% 50%, transparent 0deg, rgba(255,244,214,0.55) 11deg, transparent 22deg, transparent 360deg);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 18%, transparent 46%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 18%, transparent 46%);
+}
+.intro-on .beam.b1 { left: 38%; }
+.intro-on .beam.b2 { left: 62%; }
+.intro-on.intro-go .beam.b1 { animation: swing-l 2.1s 0.9s cubic-bezier(.3,.1,.2,1) both; }
+.intro-on.intro-go .beam.b2 { animation: swing-r 2.1s 0.9s cubic-bezier(.3,.1,.2,1) both; }
+@keyframes swing-l {
+  0%   { transform: rotate(-84deg); opacity: 0; }
+  12%  { opacity: 1; }
+  70%  { transform: rotate(-8deg); opacity: 1; }
+  100% { transform: rotate(-4deg); opacity: 0; }
+}
+@keyframes swing-r {
+  0%   { transform: rotate(84deg); opacity: 0; }
+  12%  { opacity: 1; }
+  70%  { transform: rotate(8deg); opacity: 1; }
+  100% { transform: rotate(4deg); opacity: 0; }
+}
+
+/* Copy rises in once the hall is lit */
+.intro-on .reveal .copy .wrap > *, .intro-on .reveal .hint { opacity: 0; }
+.intro-on.intro-go .reveal .copy .wrap > * { animation: intro-rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(1) { animation-delay: 2.0s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(2) { animation-delay: 2.15s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(3) { animation-delay: 2.3s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(4) { animation-delay: 2.45s; }
+.intro-on.intro-go .reveal .hint { animation: intro-rise 0.8s 2.7s ease both; }
+@keyframes intro-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-dark, .intro-beams { display: none !important; }
+}
