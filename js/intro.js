@@ -22,5 +22,4 @@
   if (document.readyState === 'complete') go(); else addEventListener('load', go);
   setTimeout(go, 1500);
   addEventListener('keydown', end);
-  addEventListener('pointerdown', end);
 })();
