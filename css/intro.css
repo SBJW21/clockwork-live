@@ -1,7 +1,7 @@
 /* Homepage intro: stage lights strike, two beams swing up and open the hall.
    Only runs when <html> has .intro-on (set once per session in the page head). */
 
-@property --ir { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+@property --ir { syntax: "<percentage>"; inherits: false; initial-value: -20%; }
 
 .intro-dark, .intro-beams, .intro-count, .intro-mark { display: none; }
 
@@ -17,7 +17,7 @@
 }
 .intro-on.intro-go .intro-dark { animation: intro-open 1.7s 3.35s cubic-bezier(.45,.05,.2,1) both; }
 @keyframes intro-open {
-  0%   { --ir: 0%;   opacity: 1; }
+  0%   { --ir: -20%;  opacity: 1; }
   88%  { opacity: 1; }
   100% { --ir: 130%; opacity: 0; }
 }
