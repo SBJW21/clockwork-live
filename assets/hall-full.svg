@@ -82,8 +82,6 @@
 <ellipse cx="960" cy="560" rx="260" ry="120" fill="#3fb877" opacity="0.8" filter="url(#blur40)"/>
 <ellipse cx="960" cy="400" rx="200" ry="120" fill="#3dc4ff" opacity="0.8" filter="url(#blur40)"/>
 </g>
-<text x="960" y="452" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="64" letter-spacing="6" fill="#fff">THE UNVEILING</text>
-<text x="960" y="494" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="600" font-size="22" letter-spacing="10" fill="rgba(255,255,255,0.85)">LIVE  TONIGHT</text>
 <rect x="600" y="290" width="720" height="310" fill="url(#pix)" opacity="0.5"/>
 <polygon points="430,640 1490,640 1580,730 340,730" fill="#141a33"/>
 <rect x="340" y="730" width="1240" height="36" fill="#0c0f1a"/>

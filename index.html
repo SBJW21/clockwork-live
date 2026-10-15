@@ -101,7 +101,6 @@
     <div class="intro-beams" aria-hidden="true"><i class="flare"></i><i class="beam b1"></i><i class="beam b2"></i></div>
     <div class="copy">
       <div class="wrap">
-        <span class="eyebrow">Experiential AV &amp; Event Production</span>
         <h1>From an empty hall <span class="accent">to a full house.</span></h1>
         <p class="lead">Clockwork Live is the technical production partner for events that can't afford to glitch. Same room, same day, ready to run.</p>
         <div class="hero-actions">
@@ -258,8 +257,15 @@
     if (coarse) { var hint = root.querySelector('.hint'); if (hint) hint.textContent = 'Touch the hall'; }
 
     function box() { return root.getBoundingClientRect(); }
+    /* On touch screens the circle stays smaller and above the headline copy */
+    function freeHeight() {
+      var b = box(), c = root.querySelector('.copy .wrap');
+      var top = c ? c.getBoundingClientRect().top - b.top : b.height;
+      return Math.max(120, top - 24);
+    }
     function rMax() {
       var b = box();
+      if (coarse) return Math.max(50, Math.min(105, b.width * 0.27, freeHeight() / 2 - 8));
       return Math.min(250, Math.min(b.width, b.height) * 0.42);
     }
     function point(e) {
@@ -281,8 +287,8 @@
     }
     function startFloat() {
       var b = box();
-      if (!started) { x = tx = b.width * 0.5; y = ty = b.height * 0.55; started = true; }
-      var a = Math.random() * Math.PI * 2;
+      if (!started) { x = tx = b.width * 0.5; y = ty = freeHeight() / 2; started = true; }
+      var a = Math.PI / 4 + Math.floor(Math.random() * 4) * Math.PI / 2 + (Math.random() - 0.5) * 0.5; /* diagonal start so it always travels */
       vx = Math.cos(a) * SPEED; vy = Math.sin(a) * SPEED;
       tx = x; ty = y;
       floating = true; last = 0; tr = rMax();
@@ -300,7 +306,7 @@
       if (coarse) {
         if (reduce) {
           var b = box();
-          x = tx = b.width * 0.5; y = ty = b.height * 0.55; started = true;
+          x = tx = b.width * 0.5; y = ty = freeHeight() / 2; started = true;
           tr = rMax(); root.classList.add('on');
         } else { startFloat(); }
         return;
@@ -319,12 +325,14 @@
         last = t;
         var rr = rMax(), pad = rr * 0.45;
         var minX = pad, maxX = b.width - pad, minY = pad, maxY = b.height - pad;
+        if (coarse) { pad = rr + 6; minX = pad; maxX = b.width - pad; minY = pad + 36; maxY = Math.max(minY, freeHeight() - rr - 4); }
         var tvx = vx, tvy = vy;
         /* turn around gently at the edges instead of snapping */
-        if (tx < minX && vx < 0) tvx = Math.abs(vx);
-        if (tx > maxX && vx > 0) tvx = -Math.abs(vx);
-        if (ty < minY && vy < 0) tvy = Math.abs(vy);
-        if (ty > maxY && vy > 0) tvy = -Math.abs(vy);
+        var turn = SPEED * 0.7;
+        if (tx < minX) tvx = turn;
+        if (tx > maxX) tvx = -turn;
+        if (ty < minY) tvy = turn;
+        if (ty > maxY) tvy = -turn;
         var k = Math.min(1, dt * 1.2);
         vx += (tvx - vx) * k; vy += (tvy - vy) * k;
         tx += vx * dt; ty += vy * dt + Math.sin(t / 2200) * 6 * dt;
