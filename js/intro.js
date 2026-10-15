@@ -1,5 +1,5 @@
 // Homepage intro controller. The .intro-on class is set in the page head
-// (once per session, never with reduced motion). Add ?intro to the URL to replay.
+// (on fresh visits and refreshes, not when moving around the site, never with reduced motion). Add ?intro to the URL to replay.
 (function () {
   var d = document.documentElement;
   if (!d.classList.contains('intro-on')) return;
@@ -15,7 +15,6 @@
   function go() {
     if (started) return;
     started = true;
-    try { sessionStorage.setItem('cwIntro', '1'); } catch (e) {}
     d.classList.add('intro-go');
     setTimeout(end, 3600);
   }
