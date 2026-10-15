@@ -3,7 +3,7 @@
 
 @property --ir { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
 
-.intro-dark, .intro-beams { display: none; }
+.intro-dark, .intro-beams, .intro-count { display: none; }
 
 .intro-on .intro-dark, .intro-on .intro-beams {
   display: block; position: absolute; inset: 0; pointer-events: none; overflow: hidden;
@@ -15,7 +15,7 @@
   -webkit-mask-image: radial-gradient(ellipse 130% 110% at 50% 100%, transparent var(--ir), #000 calc(var(--ir) + 16%));
   mask-image: radial-gradient(ellipse 130% 110% at 50% 100%, transparent var(--ir), #000 calc(var(--ir) + 16%));
 }
-.intro-on.intro-go .intro-dark { animation: intro-open 1.7s 0.9s cubic-bezier(.45,.05,.2,1) both; }
+.intro-on.intro-go .intro-dark { animation: intro-open 1.7s 2.2s cubic-bezier(.45,.05,.2,1) both; }
 @keyframes intro-open {
   0%   { --ir: 0%;   opacity: 1; }
   88%  { opacity: 1; }
@@ -30,7 +30,7 @@
   background: radial-gradient(circle, rgba(255,248,226,0.95) 0%, rgba(255,226,160,0.45) 28%, rgba(255,226,160,0) 68%);
   opacity: 0;
 }
-.intro-on.intro-go .flare { animation: intro-strike 1.5s 0.25s ease-out both; }
+.intro-on.intro-go .flare { animation: intro-strike 1.5s 1.55s ease-out both; }
 @keyframes intro-strike {
   0%   { opacity: 0; transform: translate(-50%, 50%) scale(0.2); }
   8%   { opacity: 1; }
@@ -52,8 +52,8 @@
 }
 .intro-on .beam.b1 { left: 38%; }
 .intro-on .beam.b2 { left: 62%; }
-.intro-on.intro-go .beam.b1 { animation: swing-l 2.1s 0.9s cubic-bezier(.3,.1,.2,1) both; }
-.intro-on.intro-go .beam.b2 { animation: swing-r 2.1s 0.9s cubic-bezier(.3,.1,.2,1) both; }
+.intro-on.intro-go .beam.b1 { animation: swing-l 2.1s 2.2s cubic-bezier(.3,.1,.2,1) both; }
+.intro-on.intro-go .beam.b2 { animation: swing-r 2.1s 2.2s cubic-bezier(.3,.1,.2,1) both; }
 @keyframes swing-l {
   0%   { transform: rotate(-84deg); opacity: 0; }
   12%  { opacity: 1; }
@@ -70,13 +70,30 @@
 /* Copy rises in once the hall is lit */
 .intro-on .reveal .copy .wrap > *, .intro-on .reveal .hint { opacity: 0; }
 .intro-on.intro-go .reveal .copy .wrap > * { animation: intro-rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(1) { animation-delay: 2.0s; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(2) { animation-delay: 2.15s; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(3) { animation-delay: 2.3s; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(4) { animation-delay: 2.45s; }
-.intro-on.intro-go .reveal .hint { animation: intro-rise 0.8s 2.7s ease both; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(1) { animation-delay: 3.3s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(2) { animation-delay: 3.45s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(3) { animation-delay: 3.6s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(4) { animation-delay: 3.75s; }
+.intro-on.intro-go .reveal .hint { animation: intro-rise 0.8s 4.0s ease both; }
 @keyframes intro-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro-dark, .intro-beams { display: none !important; }
+  .intro-dark, .intro-beams, .intro-count { display: none !important; }
 }
+
+/* Countdown: 3, 2, 1 in dark green with a ring that sweeps round, before the lights come on */
+.intro-on .intro-count { display: grid; position: absolute; inset: 0; place-items: center; pointer-events: none; }
+.intro-count .ring { position: absolute; width: clamp(190px, 42vmin, 380px); height: clamp(190px, 42vmin, 380px); transform: rotate(-90deg); overflow: visible; }
+.intro-count .ring circle { fill: none; stroke-linecap: round; }
+.intro-count .ring .track { stroke: rgba(31,122,75,0.22); stroke-width: 3; }
+.intro-count .ring .sweep { stroke: #2a8a57; stroke-width: 4; stroke-dasharray: 100; stroke-dashoffset: 100; filter: drop-shadow(0 0 8px rgba(42,138,87,0.6)); }
+.intro-count b { position: absolute; font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; font-weight: 800; font-size: clamp(90px, 22vmin, 200px); line-height: 1; color: #1f7a4b; text-shadow: 0 0 40px rgba(31,122,75,0.55); opacity: 0; }
+.intro-on.intro-go .intro-count .ring .sweep { animation: count-sweep 1.2s linear both; }
+.intro-on.intro-go .intro-count b { animation: count-digit 0.4s ease-out both; }
+.intro-on.intro-go .intro-count b:nth-of-type(1) { animation-delay: 0s; }
+.intro-on.intro-go .intro-count b:nth-of-type(2) { animation-delay: 0.4s; }
+.intro-on.intro-go .intro-count b:nth-of-type(3) { animation-delay: 0.8s; }
+.intro-on.intro-go .intro-count { animation: count-out 0.25s 1.25s ease-in both; }
+@keyframes count-sweep { to { stroke-dashoffset: 0; } }
+@keyframes count-digit { 0% { opacity: 0; transform: scale(1.25); } 25% { opacity: 1; } 80% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.94); } }
+@keyframes count-out { to { opacity: 0; } }

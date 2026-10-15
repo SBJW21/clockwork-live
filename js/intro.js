@@ -8,7 +8,7 @@
     if (ended) return;
     ended = true;
     d.classList.remove('intro-on', 'intro-go');
-    ['.intro-dark', '.intro-beams'].forEach(function (s) {
+    ['.intro-dark', '.intro-beams', '.intro-count'].forEach(function (s) {
       var el = document.querySelector(s); if (el) el.remove();
     });
   }
@@ -16,7 +16,7 @@
     if (started) return;
     started = true;
     d.classList.add('intro-go');
-    setTimeout(end, 3600);
+    setTimeout(end, 4900);
   }
   if (document.readyState === 'complete') go(); else addEventListener('load', go);
   setTimeout(go, 1500);
