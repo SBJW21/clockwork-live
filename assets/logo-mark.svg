@@ -1,10 +1,10 @@
 <svg viewBox="545.66 167.34 444.69 512.35" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="cwlMark" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8fa3ff"/>
-      <stop offset="32%" stop-color="#3346ef"/>
-      <stop offset="66%" stop-color="#1f2b99"/>
-      <stop offset="100%" stop-color="#6c8bff"/>
+      <stop offset="0%" stop-color="#7fd9a4"/>
+      <stop offset="32%" stop-color="#3fb877"/>
+      <stop offset="66%" stop-color="#2a8a57"/>
+      <stop offset="100%" stop-color="#5cc78d"/>
     </linearGradient>
   </defs>
   <g fill="url(#cwlMark)">
