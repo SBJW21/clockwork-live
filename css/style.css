@@ -799,7 +799,7 @@ footer {
 .built-by:hover { color: #8b909b; }
 
 /* Logo carousel */
-.logos-band { padding: 36px 0 20px; }
+.logos-band { margin-top: -16px; padding: 0 0 68px; }
 .logos-label { margin: 0 0 22px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
 .logos-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
 .logos-track { display: flex; width: max-content; margin: 0; padding: 0; list-style: none; animation: logos-scroll 28s linear infinite; }
