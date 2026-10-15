@@ -83,15 +83,20 @@
 
 /* Countdown: 20:26 runs down to 00:00 in dark green, then the Cc mark draws in before the lights */
 .intro-on .intro-count, .intro-on .intro-mark { display: grid; position: absolute; inset: 0; place-items: center; pointer-events: none; }
-.intro-count .time { font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; font-weight: 800; font-size: clamp(48px, 10vmin, 96px); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1; color: #1f7a4b; text-shadow: 0 0 40px rgba(31,122,75,0.55); }
-.intro-on.intro-go .intro-on.intro-go .intro-count { animation: count-out 0.2s 1.9s ease-in both; }
+.intro-count .time { display: flex; align-items: center; gap: clamp(6px, 1.4vmin, 14px); transform: skewX(-7deg); }
+.intro-count .dg { height: clamp(74px, 15vmin, 140px); width: auto; overflow: visible; }
+.intro-count .seg { fill: rgba(31,122,75,0.10); }
+.intro-count .seg.on { fill: #1f7a4b; filter: drop-shadow(0 0 7px rgba(42,138,87,0.75)); }
+.intro-count .colon { display: flex; flex-direction: column; gap: clamp(16px, 4vmin, 38px); padding: 0 2px; }
+.intro-count .colon i { width: clamp(6px, 1.3vmin, 12px); height: clamp(6px, 1.3vmin, 12px); background: #1f7a4b; box-shadow: 0 0 10px rgba(42,138,87,0.8); }
+.intro-on.intro-go .intro-count { animation: count-out 0.25s 1.7s ease-in both; }
 @keyframes count-out { to { opacity: 0; } }
 
 .intro-mark { opacity: 0; }
 .intro-mark svg { width: clamp(110px, 24vmin, 220px); height: auto; overflow: visible; filter: drop-shadow(0 0 22px rgba(63,184,119,0.35)); }
 .intro-mark path { stroke-dasharray: 100; stroke-dashoffset: 100; }
-.intro-on.intro-go .intro-mark { animation: mark-life 1.3s 2.0s ease both; }
-.intro-on.intro-go .intro-mark .m1 { animation: mark-draw 0.6s 2.05s cubic-bezier(.4,0,.2,1) both; }
-.intro-on.intro-go .intro-mark .m2 { animation: mark-draw 0.55s 2.2s cubic-bezier(.4,0,.2,1) both; }
+.intro-on.intro-go .intro-mark { animation: mark-life 1.3s 1.85s ease both; }
+.intro-on.intro-go .intro-mark .m1 { animation: mark-draw 0.6s 1.9s cubic-bezier(.4,0,.2,1) both; }
+.intro-on.intro-go .intro-mark .m2 { animation: mark-draw 0.55s 2.05s cubic-bezier(.4,0,.2,1) both; }
 @keyframes mark-draw { to { stroke-dashoffset: 0; } }
 @keyframes mark-life { 0% { opacity: 0; transform: scale(0.92); } 15% { opacity: 1; transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; transform: scale(1.06); } }
