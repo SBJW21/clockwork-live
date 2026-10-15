@@ -821,3 +821,5 @@ a.cue-card { display: block; color: inherit; text-decoration: none; }
 @media (max-width: 760px) { .page-banner { height: 120px; } }
 .page-banner + .page-header { padding-top: 44px; }
 @media (max-width: 760px) { .page-banner + .page-header { padding-top: 32px; } }
+
+.brand img.brand-mark { width: 28px; height: 28px; display: block; }
