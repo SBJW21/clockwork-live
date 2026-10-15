@@ -808,3 +808,6 @@ footer {
 @keyframes logos-scroll { to { transform: translateX(-25%); } }
 @media (prefers-reduced-motion: reduce) { .logos-track { animation: none; } .logos-marquee { overflow-x: auto; } }
 @media (max-width: 760px) { .panel-actions { justify-content: center; } .logos-track li { padding: 0 30px; } }
+
+a.cue-card { display: block; color: inherit; text-decoration: none; }
+.rundown-row { scroll-margin-top: 96px; }
