@@ -794,3 +794,6 @@ footer {
 .mosaic .photo img { filter: grayscale(1); }
 .mosaic .m-a img { object-position: 50% 60%; }
 .rundown-row .photo img { filter: grayscale(1); }
+
+.built-by { color: #5b606b; transition: color 0.2s ease; }
+.built-by:hover { color: #8b909b; }
