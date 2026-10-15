@@ -46,12 +46,12 @@
   .reveal.on .ring { opacity: 1; }
   .reveal .scrim {
     position: absolute; inset: 0;
-    background: linear-gradient(0deg, rgba(6,7,10,0.88) 0%, rgba(6,7,10,0.55) 28%, rgba(6,7,10,0) 52%);
+    background: linear-gradient(180deg, rgba(6,7,10,0.88) 0%, rgba(6,7,10,0.55) 32%, rgba(6,7,10,0) 58%);
     pointer-events: none;
   }
   .reveal .copy {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    padding-bottom: 56px;
+    position: absolute; left: 0; right: 0; top: 0;
+    padding-top: 56px;
     pointer-events: none;
   }
   .reveal .copy { text-shadow: 0 2px 28px rgba(0,0,0,0.7); }
@@ -60,7 +60,7 @@
   .reveal .copy .lead { font-size: clamp(16px, 1.5vw, 19px); color: var(--text-dim); max-width: 540px; margin: 0 0 28px; }
   .reveal .copy .hero-actions { pointer-events: auto; }
   .reveal .hint {
-    position: absolute; top: 22px; right: 28px;
+    position: absolute; bottom: 22px; right: 28px;
     font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--text-dim);
     padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px;
@@ -70,7 +70,7 @@
   }
   .reveal.touched .hint { opacity: 0; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  @media (max-width: 700px) { .reveal .hint { top: 14px; right: 14px; font-size: 11px; } .reveal .copy { padding-bottom: 36px; } }
+  @media (max-width: 700px) { .reveal .hint { bottom: 14px; right: 14px; font-size: 11px; } .reveal .copy { padding-top: 32px; } }
 </style>
 </head>
 <body>
@@ -261,8 +261,12 @@
     /* On touch screens the circle stays smaller and above the headline copy */
     function freeHeight() {
       var b = box(), c = root.querySelector('.copy .wrap');
-      var top = c ? c.getBoundingClientRect().top - b.top : b.height;
-      return Math.max(120, top - 24);
+      var bottom = c ? c.getBoundingClientRect().bottom - b.top : 0;
+      return Math.max(120, b.height - bottom - 24);
+    }
+    function copyBottom() {
+      var b = box(), c = root.querySelector('.copy .wrap');
+      return c ? c.getBoundingClientRect().bottom - b.top + 12 : 0;
     }
     function rMax() {
       var b = box();
@@ -288,7 +292,7 @@
     }
     function startFloat() {
       var b = box();
-      if (!started) { x = tx = b.width * 0.5; y = ty = freeHeight() / 2; started = true; }
+      if (!started) { x = tx = b.width * 0.5; y = ty = copyBottom() + freeHeight() / 2; started = true; }
       var a = Math.PI / 4 + Math.floor(Math.random() * 4) * Math.PI / 2 + (Math.random() - 0.5) * 0.5; /* diagonal start so it always travels */
       vx = Math.cos(a) * SPEED; vy = Math.sin(a) * SPEED;
       tx = x; ty = y;
@@ -307,7 +311,7 @@
       if (coarse) {
         if (reduce) {
           var b = box();
-          x = tx = b.width * 0.5; y = ty = freeHeight() / 2; started = true;
+          x = tx = b.width * 0.5; y = ty = copyBottom() + freeHeight() / 2; started = true;
           tr = rMax(); root.classList.add('on');
         } else { startFloat(); }
         return;
@@ -326,7 +330,7 @@
         last = t;
         var rr = rMax(), pad = rr * 0.45;
         var minX = pad, maxX = b.width - pad, minY = pad, maxY = b.height - pad;
-        if (coarse) { pad = rr + 6; minX = pad; maxX = b.width - pad; minY = pad + 36; maxY = Math.max(minY, freeHeight() - rr - 4); }
+        if (coarse) { pad = rr + 6; minX = pad; maxX = b.width - pad; minY = copyBottom() + rr; maxY = Math.max(minY, b.height - rr - 44); }
         var tvx = vx, tvy = vy;
         /* turn around gently at the edges instead of snapping */
         var turn = SPEED * 0.7;
