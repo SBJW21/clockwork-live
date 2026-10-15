@@ -793,3 +793,4 @@ footer {
 
 .mosaic .photo img { filter: grayscale(1); }
 .mosaic .m-a img { object-position: 50% 60%; }
+.rundown-row .photo img { filter: grayscale(1); }
