@@ -83,14 +83,8 @@
 
 /* Countdown: 20:26 runs down to 00:00 in dark green, then the Cc mark draws in before the lights */
 .intro-on .intro-count, .intro-on .intro-mark { display: grid; position: absolute; inset: 0; place-items: center; pointer-events: none; }
-.intro-count .ring { position: absolute; width: clamp(260px, 56vmin, 520px); height: clamp(260px, 56vmin, 520px); transform: rotate(-90deg); overflow: visible; }
-.intro-count .ring circle { fill: none; stroke-linecap: round; }
-.intro-count .ring .track { stroke: rgba(31,122,75,0.22); stroke-width: 2.5; }
-.intro-count .ring .sweep { stroke: #2a8a57; stroke-width: 3.5; stroke-dasharray: 100; stroke-dashoffset: 0; filter: drop-shadow(0 0 8px rgba(42,138,87,0.6)); }
 .intro-count .time { font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; font-weight: 800; font-size: clamp(48px, 10vmin, 96px); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1; color: #1f7a4b; text-shadow: 0 0 40px rgba(31,122,75,0.55); }
-.intro-on.intro-go .intro-count .ring .sweep { animation: count-sweep 1.6s 0.1s cubic-bezier(.5,0,.3,1) both; }
-.intro-on.intro-go .intro-count { animation: count-out 0.2s 1.9s ease-in both; }
-@keyframes count-sweep { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 100; } }
+.intro-on.intro-go .intro-on.intro-go .intro-count { animation: count-out 0.2s 1.9s ease-in both; }
 @keyframes count-out { to { opacity: 0; } }
 
 .intro-mark { opacity: 0; }
