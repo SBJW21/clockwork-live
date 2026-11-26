@@ -4,7 +4,8 @@ A plain HTML/CSS/JS static site. No build step, no framework: open any page dire
 
 ## Structure
 
-- `index.html`: Home (hero uses the Neon Flow tubes piece as a live WebGL background, via `assets/hero-tubes.html` in an iframe)
+- `index.html`: Holding page (live homepage for now)
+- `newhome27/index.html`: Full homepage preview (hero uses the Neon Flow tubes piece as a live WebGL background, via `assets/hero-tubes.html` in an iframe)
 - `services.html`: Services
 - `work.html`: Work / Portfolio
 - `team.html`: Team
