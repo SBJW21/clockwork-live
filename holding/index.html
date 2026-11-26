@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clockwork Live | Coming soon</title>
+<meta name="description" content="Clockwork Live is a collaborative partner for technical design, project management and live production. Our new site is on the way." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .reveal {
+    --x: 50%; --y: 50%; --r: 0px;
+    position: relative;
+    height: calc(100vh - 76px);
+    height: calc(100dvh - 76px);
+    min-height: 560px;
+    padding: 0;
+    overflow: hidden;
+    background: #05060a;
+    border-bottom: 1px solid var(--line);
+    touch-action: pan-y;
+  }
+  .reveal .layer {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 62%;
+    display: block;
+    user-select: none; -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  .reveal .layer.base { filter: grayscale(1) contrast(1.05) brightness(0.4); }
+  .reveal .layer.top {
+    filter: grayscale(1) sepia(0.35) brightness(1.15);
+    -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 55%, transparent 100%);
+    mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 55%, transparent 100%);
+  }
+  .reveal .ring {
+    position: absolute; left: 0; top: 0;
+    width: calc(var(--r) * 2); height: calc(var(--r) * 2);
+    transform: translate(calc(var(--x) - var(--r)), calc(var(--y) - var(--r)));
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,226,160,0.16), rgba(255,226,160,0) 70%);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .reveal.on .ring { opacity: 1; }
+  .reveal .scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(6,7,10,0.88) 0%, rgba(6,7,10,0.55) 28%, rgba(6,7,10,0) 52%);
+    pointer-events: none;
+  }
+  .reveal .copy {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding-bottom: 56px;
+    pointer-events: none;
+  }
+  .reveal .copy { text-shadow: 0 2px 28px rgba(0,0,0,0.7); }
+  .reveal .copy h1 { font-size: clamp(34px, 5vw, 66px); line-height: 1.04; max-width: 820px; margin-bottom: 18px; }
+  @media (max-width: 700px) { .reveal .copy h1 { font-size: min(32px, 7.6vw); } }
+  .reveal .copy .lead { font-size: clamp(16px, 1.5vw, 19px); color: var(--text-dim); max-width: 540px; margin: 0 0 28px; }
+  .reveal .copy .hero-actions { pointer-events: auto; }
+  .reveal .hint {
+    position: absolute; top: 22px; right: 28px;
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px;
+    background: rgba(6,7,10,0.55); backdrop-filter: blur(6px);
+    pointer-events: none;
+    transition: opacity .4s ease;
+  }
+  .reveal.touched .hint { opacity: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (max-width: 700px) { .reveal .hint { top: 14px; right: 14px; font-size: 11px; } .reveal .copy { padding-bottom: 68px; } }
+
+  .holding-note { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin: 0 0 14px; }
+  .holding-foot { padding: 18px 0 22px; text-align: center; font-size: 12px; color: var(--text-faint); }
+  .site-nav .brand { cursor: default; }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap">
+      <span class="brand">
+        <img class="brand-mark" src="../assets/logo-mark.svg" alt="" width="28" height="28" />
+        CLOCKWORK<span class="live">LIVE</span>
+      </span>
+    </div>
+  </nav>
+
+  <section class="reveal" id="reveal" aria-label="Empty hall that fills with a crowd where you point">
+    <img class="layer base" src="../assets/hall-full.svg" alt="" />
+    <div class="scrim"></div>
+    <img class="layer top" src="../assets/hall-full.svg" alt="" />
+    <div class="ring" id="ring"></div>
+    <div class="hint">Move over the hall</div>
+    <div class="copy">
+      <div class="wrap">
+        <h1>From an empty hall <span class="accent">to a full house.</span></h1>
+        <p class="lead">Clockwork Live is a collaborative partner for technical design, project management and live production.</p>
+        <p class="holding-note">New site coming soon</p>
+        <div class="hero-actions">
+          <a href="mailto:hello@clockworklive.com" class="btn btn-primary">hello@clockworklive.com</a>
+        </div>
+      </div>
+    </div>
+    <p class="sr-only">Decorative image pair. The empty hall is the default view. Pointing at it reveals the same hall full of people.</p>
+  </section>
+
+  <div class="holding-foot">&copy; 2026 Clockwork Live</div>
+
+  <script>
+  (function () {
+    var root = document.getElementById('reveal');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var coarse = window.matchMedia && matchMedia('(hover: none)').matches;
+    var x = 0, y = 0, tx = 0, ty = 0, r = 0, tr = 0;
+    var demo = false, demoStart = 0, started = false;
+    var floating = false, vx = 0, vy = 0, resumeTimer = null, last = 0;
+    var SPEED = 26; /* px per second: slow enough to stay calm */
+
+    if (coarse) { var hint = root.querySelector('.hint'); if (hint) hint.textContent = 'Touch the hall'; }
+
+    function box() { return root.getBoundingClientRect(); }
+    /* On touch screens the circle stays smaller and above the headline copy */
+    function freeHeight() {
+      var b = box(), c = root.querySelector('.copy .wrap');
+      var top = c ? c.getBoundingClientRect().top - b.top : b.height;
+      return Math.max(120, top - 24);
+    }
+    function rMax() {
+      var b = box();
+      if (coarse) return Math.max(50, Math.min(105, b.width * 0.27, freeHeight() / 2 - 8));
+      return Math.min(225, Math.min(b.width, b.height) * 0.378);
+    }
+    function point(e) {
+      var b = box();
+      tx = e.clientX - b.left; ty = e.clientY - b.top;
+      if (!started) { x = tx; y = ty; started = true; }
+      demo = false; floating = false;
+      clearTimeout(resumeTimer);
+      tr = rMax();
+      root.classList.add('on', 'touched');
+    }
+    function release() {
+      if (coarse && !reduce) {
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(startFloat, 1400);
+      } else if (!coarse) {
+        tr = 0;
+      }
+    }
+    function startFloat() {
+      var b = box();
+      if (!started) { x = tx = b.width * 0.5; y = ty = freeHeight() / 2; started = true; }
+      var a = Math.PI / 4 + Math.floor(Math.random() * 4) * Math.PI / 2 + (Math.random() - 0.5) * 0.5; /* diagonal start so it always travels */
+      vx = Math.cos(a) * SPEED; vy = Math.sin(a) * SPEED;
+      tx = x; ty = y;
+      floating = true; last = 0; tr = rMax();
+      root.classList.add('on');
+    }
+    root.addEventListener('pointerenter', function (e) { if (!coarse) point(e); });
+    root.addEventListener('pointermove', point);
+    root.addEventListener('pointerdown', point);
+    root.addEventListener('pointerup', release);
+    root.addEventListener('pointerleave', release);
+    root.addEventListener('pointercancel', release);
+
+    setTimeout(function () {
+      if (started) return;
+      if (coarse) {
+        if (reduce) {
+          var b = box();
+          x = tx = b.width * 0.5; y = ty = freeHeight() / 2; started = true;
+          tr = rMax(); root.classList.add('on');
+        } else { startFloat(); }
+        return;
+      }
+      if (reduce) return;
+      var b2 = box();
+      x = tx = b2.width * 0.5; y = ty = b2.height * 0.55; started = true;
+      demo = true; demoStart = performance.now(); tr = rMax();
+      root.classList.add('on');
+    }, 700);
+
+    function frame(t) {
+      var b = box();
+      if (floating) {
+        var dt = last ? Math.min(0.25, (t - last) / 1000) : 0;
+        last = t;
+        var rr = rMax(), pad = rr * 0.45;
+        var minX = pad, maxX = b.width - pad, minY = pad, maxY = b.height - pad;
+        if (coarse) { pad = rr + 6; minX = pad; maxX = b.width - pad; minY = pad + 36; maxY = Math.max(minY, freeHeight() - rr - 4); }
+        var tvx = vx, tvy = vy;
+        /* turn around gently at the edges instead of snapping */
+        var turn = SPEED * 0.7;
+        if (tx < minX) tvx = turn;
+        if (tx > maxX) tvx = -turn;
+        if (ty < minY) tvy = turn;
+        if (ty > maxY) tvy = -turn;
+        var k = Math.min(1, dt * 1.2);
+        vx += (tvx - vx) * k; vy += (tvy - vy) * k;
+        tx += vx * dt; ty += vy * dt + Math.sin(t / 2200) * 6 * dt;
+        tr = rr;
+      } else if (demo) {
+        var kk = (t - demoStart) / 1000;
+        tx = b.width * (0.5 + 0.2 * Math.sin(kk * 0.7));
+        ty = b.height * (0.55 + 0.12 * Math.sin(kk * 1.1));
+      }
+      var e = reduce ? 1 : (floating ? 0.08 : 0.16);
+      x += (tx - x) * e; y += (ty - y) * e; r += (tr - r) * (reduce ? 1 : 0.13);
+      if (Math.abs(r) < 0.3 && tr === 0) { r = 0; root.classList.remove('on'); }
+      root.style.setProperty('--x', x.toFixed(1) + 'px');
+      root.style.setProperty('--y', y.toFixed(1) + 'px');
+      root.style.setProperty('--r', r.toFixed(1) + 'px');
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+  </script>
+</body>
+</html>
