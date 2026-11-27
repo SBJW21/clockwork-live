@@ -92,18 +92,19 @@
 .intro-on.intro-go .intro-count { animation: count-out 0.25s 1.7s ease-in both; }
 @keyframes count-out { to { opacity: 0; } }
 
-/* Drawing sheet: the lights strike it on, the CAD drawing holds, then it fades to the finished logo */
+/* Drawing sheet: the lights strike it on, the CAD drawing holds, then it fades to the finished logo.
+   Both sit in one box sized like the final logo, so the two logos line up exactly. */
 .intro-on .intro-sheet { background: #fff; opacity: 0; display: grid; place-items: center; }
-.intro-sheet img { position: absolute; display: block; }
-.intro-sheet .cad { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-.intro-sheet .final { width: clamp(190px, 46vmin, 460px); height: auto; opacity: 0; }
-@media (max-aspect-ratio: 1/1) { .intro-sheet .cad { object-fit: contain; } }
+.intro-sheet .lock { position: relative; width: clamp(200px, 62vmin, 620px); aspect-ratio: 819 / 503; }
+.intro-sheet img { position: absolute; display: block; max-width: none; }
+.intro-sheet .final { left: 0; top: 0; width: 100%; height: 100%; opacity: 0; }
+.intro-sheet .cad { left: -16.83%; top: -29.76%; width: 144.84%; height: auto; }
 .intro-on.intro-go .intro-sheet { animation: sheet-on 1.2s 1.95s linear both; }
 @keyframes sheet-on {
   0% { opacity: 0; } 8% { opacity: 0.5; } 16% { opacity: 0.12; } 28% { opacity: 0.85; }
   38% { opacity: 0.3; } 58% { opacity: 1; } 100% { opacity: 1; }
 }
 .intro-on.intro-go .intro-sheet .cad { animation: sheet-fade-out 0.9s 3.7s ease both; }
-.intro-on.intro-go .intro-sheet .final { animation: sheet-final-in 0.9s 3.9s ease both; }
+.intro-on.intro-go .intro-sheet .final { animation: sheet-final-in 0.9s 3.7s ease both; }
 @keyframes sheet-fade-out { to { opacity: 0; } }
-@keyframes sheet-final-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes sheet-final-in { from { opacity: 0; } to { opacity: 1; } }

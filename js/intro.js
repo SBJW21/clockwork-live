@@ -72,6 +72,7 @@
   function loadImages(done) {
     var sheet = document.querySelector('.intro-sheet');
     if (!sheet) return done();
+    var lock = document.createElement('div'); lock.className = 'lock'; sheet.appendChild(lock);
     var pending = 0, finished = false;
     function fin() { if (!finished) { finished = true; done(); } }
     [['cad', sheet.getAttribute('data-cad')], ['final', sheet.getAttribute('data-logo')]].forEach(function (a) {
@@ -81,7 +82,7 @@
       im.className = a[0]; im.alt = '';
       im.onload = im.onerror = function () { if (--pending === 0) fin(); };
       im.src = a[1];
-      sheet.appendChild(im);
+      lock.appendChild(im);
     });
     if (!pending) fin();
     setTimeout(fin, 3000);

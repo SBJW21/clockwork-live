@@ -12,7 +12,7 @@ A plain HTML/CSS/JS static site. No build step, no framework: open any page dire
 - `contact.html`: Contact (form is currently a placeholder: see "Wiring up the contact form" below)
 - `css/style.css`: all shared styles
 - `js/nav.js`: mobile menu toggle
-- `assets/logo-mark.svg`: static nav/footer logo mark
+- `assets/logo-mark.png`: static nav/footer logo mark
 - `assets/hero-tubes.html`: the interactive tubes background used on the homepage hero
 
 ## Getting this live
