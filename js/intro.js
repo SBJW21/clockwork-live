@@ -44,7 +44,7 @@
       if (i === 'c') { var c = document.createElement('span'); c.className = 'colon'; c.innerHTML = '<i></i><i></i>'; el.appendChild(c); return; }
       var d = buildDigit(); el.appendChild(d); ds.push(d);
     });
-    var total = 20 * 60 + 26, dur = 1600, delay = 100, t0 = null, last = '';
+    var total = 20 * 60 + 26, dur = 1600, delay = 1600, t0 = null, last = '';
     function show(s) {
       s = Math.max(0, Math.round(s));
       var m = Math.floor(s / 60), sec = s % 60, str = ('0' + m).slice(-2) + ('0' + sec).slice(-2);
@@ -66,7 +66,7 @@
     started = true;
     d.classList.add('intro-go');
     runCount();
-    setTimeout(end, 6500);
+    setTimeout(end, 8200);
   }
   if (document.readyState === 'complete') go(); else addEventListener('load', go);
   setTimeout(go, 1500);

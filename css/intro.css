@@ -15,7 +15,7 @@
   -webkit-mask-image: radial-gradient(ellipse 130% 110% at 50% 100%, transparent var(--ir), #000 calc(var(--ir) + 16%));
   mask-image: radial-gradient(ellipse 130% 110% at 50% 100%, transparent var(--ir), #000 calc(var(--ir) + 16%));
 }
-.intro-on.intro-go .intro-dark { animation: intro-open 1.7s 3.35s cubic-bezier(.45,.05,.2,1) both; }
+.intro-on.intro-go .intro-dark { animation: intro-open 1.7s 4.95s cubic-bezier(.45,.05,.2,1) both; }
 @keyframes intro-open {
   0%   { --ir: -20%;  opacity: 1; }
   88%  { opacity: 1; }
@@ -30,7 +30,7 @@
   background: radial-gradient(circle, rgba(255,248,226,0.95) 0%, rgba(255,226,160,0.45) 28%, rgba(255,226,160,0) 68%);
   opacity: 0;
 }
-.intro-on.intro-go .flare { animation: intro-strike 1.5s 2.7s ease-out both; }
+.intro-on.intro-go .flare { animation: intro-strike 1.5s 4.3s ease-out both; }
 @keyframes intro-strike {
   0%   { opacity: 0; transform: translate(-50%, 50%) scale(0.2); }
   8%   { opacity: 1; }
@@ -52,8 +52,8 @@
 }
 .intro-on .beam.b1 { left: 38%; }
 .intro-on .beam.b2 { left: 62%; }
-.intro-on.intro-go .beam.b1 { animation: swing-l 2.1s 3.35s cubic-bezier(.3,.1,.2,1) both; }
-.intro-on.intro-go .beam.b2 { animation: swing-r 2.1s 3.35s cubic-bezier(.3,.1,.2,1) both; }
+.intro-on.intro-go .beam.b1 { animation: swing-l 2.1s 4.95s cubic-bezier(.3,.1,.2,1) both; }
+.intro-on.intro-go .beam.b2 { animation: swing-r 2.1s 4.95s cubic-bezier(.3,.1,.2,1) both; }
 @keyframes swing-l {
   0%   { transform: rotate(-84deg); opacity: 0; }
   12%  { opacity: 1; }
@@ -70,18 +70,18 @@
 /* Copy rises in once the hall is lit */
 .intro-on .reveal .copy .wrap > *, .intro-on .reveal .hint { opacity: 0; }
 .intro-on.intro-go .reveal .copy .wrap > * { animation: intro-rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(1) { animation-delay: 4.45s; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(2) { animation-delay: 4.6s; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(3) { animation-delay: 4.75s; }
-.intro-on.intro-go .reveal .copy .wrap > *:nth-child(4) { animation-delay: 4.9s; }
-.intro-on.intro-go .reveal .hint { animation: intro-rise 0.8s 5.15s ease both; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(1) { animation-delay: 6.05s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(2) { animation-delay: 6.2s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(3) { animation-delay: 6.35s; }
+.intro-on.intro-go .reveal .copy .wrap > *:nth-child(4) { animation-delay: 6.5s; }
+.intro-on.intro-go .reveal .hint { animation: intro-rise 0.8s 6.75s ease both; }
 @keyframes intro-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   .intro-dark, .intro-beams, .intro-count, .intro-mark { display: none !important; }
 }
 
-/* Countdown: 20:26 runs down to 00:00 in dark green, then the Cc mark draws in before the lights */
+/* Countdown: 20:26 runs down to 00:00 in dark green,  */
 .intro-on .intro-count, .intro-on .intro-mark { display: grid; position: absolute; inset: 0; place-items: center; pointer-events: none; }
 .intro-count .time { display: flex; align-items: center; gap: clamp(6px, 1.4vmin, 14px); transform: skewX(-7deg); }
 .intro-count .dg { height: clamp(74px, 15vmin, 140px); width: auto; overflow: visible; }
@@ -89,15 +89,15 @@
 .intro-count .seg.on { fill: #1f7a4b; filter: drop-shadow(0 0 7px rgba(42,138,87,0.75)); }
 .intro-count .colon { display: flex; flex-direction: column; gap: clamp(16px, 4vmin, 38px); padding: 0 2px; }
 .intro-count .colon i { width: clamp(6px, 1.3vmin, 12px); height: clamp(6px, 1.3vmin, 12px); background: #1f7a4b; box-shadow: 0 0 10px rgba(42,138,87,0.8); }
-.intro-on.intro-go .intro-count { animation: count-out 0.25s 1.7s ease-in both; }
-@keyframes count-out { to { opacity: 0; } }
+.intro-on.intro-go .intro-count { animation: count-life 1.9s 1.5s linear both; }
+@keyframes count-life { 0% { opacity: 0; } 6% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
 
 .intro-mark { opacity: 0; }
 .intro-mark img { width: clamp(100px, 22vmin, 200px); height: auto; display: block; filter: drop-shadow(0 0 22px rgba(63,184,119,0.35));
   -webkit-mask-image: conic-gradient(from 200deg at 50% 50%, #000 var(--mw), transparent calc(var(--mw) + 6deg));
   mask-image: conic-gradient(from 200deg at 50% 50%, #000 var(--mw), transparent calc(var(--mw) + 6deg)); }
 @property --mw { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-.intro-on.intro-go .intro-mark { animation: mark-life 1.3s 1.85s ease both; }
-.intro-on.intro-go .intro-mark img { animation: mark-draw 0.8s 1.9s cubic-bezier(.4,0,.2,1) both; }
+.intro-on.intro-go .intro-mark { animation: mark-life 1.3s 0.1s ease both; }
+.intro-on.intro-go .intro-mark img { animation: mark-draw 0.8s 0.15s cubic-bezier(.4,0,.2,1) both; }
 @keyframes mark-draw { from { --mw: 0deg; } to { --mw: 360deg; } }
 @keyframes mark-life { 0% { opacity: 0; transform: scale(0.92); } 15% { opacity: 1; transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; transform: scale(1.06); } }
