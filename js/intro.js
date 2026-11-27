@@ -66,7 +66,7 @@
     started = true;
     d.classList.add('intro-go');
     runCount();
-    setTimeout(end, 8200);
+    setTimeout(end, 7300);
   }
   if (document.readyState === 'complete') go(); else addEventListener('load', go);
   setTimeout(go, 1500);
