@@ -10,6 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/intro.css">
+<script>(function(){try{var d=document.documentElement,r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(r)return;var n=performance.getEntriesByType('navigation')[0],t=n&&n.type,i=false;try{i=!!document.referrer&&new URL(document.referrer).host===location.host}catch(e){}if(t==='reload'||!i||/[?&]intro/.test(location.search))d.classList.add('intro-on')}catch(e){}})()</script>
 <style>
   .reveal {
     --x: 50%; --y: 50%; --r: 0px;
@@ -98,6 +100,10 @@
     <img class="layer top" src="assets/hall-full.svg" alt="" />
     <div class="ring" id="ring"></div>
     <div class="hint">Move over the hall</div>
+    <div class="intro-dark" aria-hidden="true"></div>
+    <div class="intro-count" aria-hidden="true"><b class="time"></b></div>
+    <div class="intro-sheet" aria-hidden="true" data-cad="assets/intro-cad.webp" data-logo="assets/intro-logo.webp"></div>
+    <div class="intro-beams" aria-hidden="true"><i class="flare"></i><i class="beam b1"></i><i class="beam b2"></i></div>
     <div class="copy">
       <div class="wrap">
         <h1>From an empty hall <span class="accent">to a full house.</span></h1>
@@ -163,6 +169,7 @@
   <div class="holding-foot">&copy; 2026 Clockwork Live</div>
 
   <script src="js/home.js"></script>
+  <script src="js/intro.js"></script>
   <script>
   (function () {
     var root = document.getElementById('reveal');

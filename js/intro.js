@@ -8,7 +8,7 @@
     if (ended) return;
     ended = true;
     d.classList.remove('intro-on', 'intro-go');
-    ['.intro-dark', '.intro-beams', '.intro-count', '.intro-mark'].forEach(function (s) {
+    ['.intro-dark', '.intro-beams', '.intro-count', '.intro-sheet'].forEach(function (s) {
       var el = document.querySelector(s); if (el) el.remove();
     });
   }
@@ -66,9 +66,30 @@
     started = true;
     d.classList.add('intro-go');
     runCount();
-    setTimeout(end, 6500);
+    setTimeout(end, 10200);
   }
-  if (document.readyState === 'complete') go(); else addEventListener('load', go);
-  setTimeout(go, 1500);
+  // Load the two drawing images first so the sheet never pops in half drawn.
+  function loadImages(done) {
+    var sheet = document.querySelector('.intro-sheet');
+    if (!sheet) return done();
+    var pending = 0, finished = false;
+    function fin() { if (!finished) { finished = true; done(); } }
+    [['cad', sheet.getAttribute('data-cad')], ['final', sheet.getAttribute('data-logo')]].forEach(function (a) {
+      if (!a[1]) return;
+      pending++;
+      var im = new Image();
+      im.className = a[0]; im.alt = '';
+      im.onload = im.onerror = function () { if (--pending === 0) fin(); };
+      im.src = a[1];
+      sheet.appendChild(im);
+    });
+    if (!pending) fin();
+    setTimeout(fin, 3000);
+  }
+  var readyRan = false;
+  function ready() { if (readyRan) return; readyRan = true; loadImages(go); }
+  if (document.readyState === 'complete') ready(); else addEventListener('load', ready);
+  setTimeout(ready, 1500);
   addEventListener('keydown', end);
+  addEventListener('pointerdown', end);
 })();
